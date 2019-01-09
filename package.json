@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run start --prefix server",
     "client-serve": "npm run serve --prefix client",
     "client-build": "npm run build --prefix client",
     "client-install": "npm run deps --prefix client",
