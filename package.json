@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-serve": "npm run serve --prefix client",
+    "client-build": "npm run build --prefix client",
+    "client-install": "npm run deps --prefix client",
+    "server-serve": "npm run serve --prefix server",
+    "server-install": "npm run deps --prefix server",
+    "serve": "concurrently \"npm run client-serve\" \"npm run server-serve\""
   },
   "author": "Ivan Osipov",
   "license": "ISC"
