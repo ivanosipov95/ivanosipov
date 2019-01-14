@@ -4,11 +4,10 @@
 /client/out-tsc
 
 # server
+server/dist
 server/config/config.dev.js
 
 # dependencies
-/client/node_modules
-/server/node_modules
 node_modules
 
 # IDEs and editors

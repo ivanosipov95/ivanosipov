@@ -4,14 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start --prefix server",
-    "client-serve": "npm run serve --prefix client",
-    "client-build": "npm run build --prefix client",
     "client-install": "npm run deps --prefix client",
-    "server-serve": "npm run serve --prefix server",
+    "client-build": "npm run build --prefix client",
+    "client-serve": "npm run serve --prefix client",
     "server-install": "npm run deps --prefix server",
-    "serve": "concurrently \"npm run client-serve\" \"npm run server-serve\""
+    "server-build": "npm run build --prefix server",
+    "server-serve": "npm run serve --prefix server",
+    "deps": "concurrently \"npm run client-install\" \"npm run server-install\"",
+    "build": "concurrently \"npm run client-build\" \"npm run server-build\"",
+    "serve": "concurrently \"npm run client-serve\" \"npm run server-serve\"",
+    "start": "npm run start --prefix server"
   },
   "author": "Ivan Osipov",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "4.1.0"
+  }
 }
