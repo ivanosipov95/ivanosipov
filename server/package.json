@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "./node_modules/typescript/bin/tsc",
     "start": "node ./dist/index.js",
     "serve": "nodemon --exec ts-node -- ./src/index.ts",
     "deps": "npm install"
@@ -15,7 +15,10 @@
     "@types/express": "4.16.0",
     "body-parser": "1.18.3",
     "express": "4.16.4",
-    "mongoose": "5.4.3",
+    "mongoose": "5.4.3"
+  },
+  "devDependencies": {
+    "typescript": "3.2.2",
     "nodemon": "1.18.9"
   }
 }

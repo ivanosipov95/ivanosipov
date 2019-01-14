@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm run deps --prefix client",
+    "client-test": "npm run test-headless --prefix client",
     "client-build": "npm run build --prefix client",
     "client-serve": "npm run serve --prefix client",
     "server-install": "npm run deps --prefix server",
