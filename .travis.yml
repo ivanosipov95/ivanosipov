@@ -17,13 +17,17 @@ install:
   - npm run deps
 
 script:
-  - npm run client-test
+#  - npm run client-test
   - npm run build
 
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - docker build -t $DOCKER_REPO:$CONTAINER_FE ./client
+  - docker build -t $DOCKER_REPO:$CONTAINER_BE ./server
   - docker push $DOCKER_REPO
   - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST "(docker stop $CONTAINER_FE || true) && (docker rm $CONTAINER_FE || true)"
   - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST docker pull $DOCKER_REPO:$CONTAINER_FE
-  - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST docker run -d -p 80:80 --name $CONTAINER_FE -v "/home/nginx/":"/etc/nginx/conf.d" $DOCKER_REPO:$CONTAINER_FE
+  - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST docker run -d -p 80:80 --name $CONTAINER_FE --network $NETWORK -v "/home/nginx/":"/etc/nginx/conf.d" $DOCKER_REPO:$CONTAINER_FE
+  - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST "(docker stop $CONTAINER_BE || true) && (docker rm $CONTAINER_BE || true)"
+  - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST docker pull $DOCKER_REPO:$CONTAINER_BE
+  - ssh -o "StrictHostKeyChecking no" $HOST_USER@$HOST docker run -d -p 3000:3000 --name $CONTAINER_BE --network $NETWORK $DOCKER_REPO:$CONTAINER_BE
