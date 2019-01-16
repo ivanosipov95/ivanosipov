@@ -1,0 +1,12 @@
+<div>Backend: {{title}}</div>
+
+<button (click)="changeTitle()">Ping backend</button>
+
+<div style="margin-top: 40px">Test navigation</div>
+<ul>
+  <li><button routerLink="/about">About</button></li>
+  <li><button routerLink="/career">Career</button></li>
+  <li><button routerLink="/blog">Blog</button></li>
+</ul>
+
+<router-outlet></router-outlet>
