@@ -23,6 +23,10 @@ const routes: Routes = [
       {
         path: 'blog',
         loadChildren: 'src/app/modules/blog/blog.module#BlogModule'
+      },
+      {
+        path: 'admin',
+        loadChildren: 'src/app/modules/admin/admin.module#AdminModule'
       }
     ]
   }
