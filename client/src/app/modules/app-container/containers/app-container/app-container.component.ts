@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import set = Reflect.set;
 
 @Component({
   selector: 'app-container',
@@ -11,11 +12,14 @@ export class AppContainerComponent implements OnInit {
   title = 'wasn\'t tested';
 
   isMenuVisible = '';
+  isTransationLayerEnable = '';
+  load = false;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
+    setTimeout(() => this.load = true, 1000);
     this.windowLoad();
   }
 
@@ -36,6 +40,10 @@ export class AppContainerComponent implements OnInit {
   private toggleMenuVisibility(): void {
     // move to nav-menu component
     this.isMenuVisible = this.isMenuVisible ? '' : 'visible';
+    this.isTransationLayerEnable = this.isTransationLayerEnable ? '' : 'visible opening';
+
+    this.load = false;
+    console.log(this.isTransationLayerEnable);
   }
 
   windowLoad(): void {
@@ -52,17 +60,12 @@ export class AppContainerComponent implements OnInit {
     modalTrigger.on('click', function (event) {
       event.preventDefault();
       transitionLayer.addClass('visible opening');
-      var delay = ($('.no-cssanimations').length > 0) ? 0 : 600;
-      setTimeout(function () {
-        modalWindow.addClass('visible');
-      }, delay);
     });
 
     //close modal window
     modalWindow.on('click', '.nav-menu__close-btn', function (event) {
       event.preventDefault();
       transitionLayer.addClass('closing');
-      modalWindow.removeClass('visible');
       transitionBackground.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
         transitionLayer.removeClass('closing opening visible');
         transitionBackground.off('webkitAnimationEnd oanimationend msAnimationEnd animationend');

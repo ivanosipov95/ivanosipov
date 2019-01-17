@@ -1,8 +1,8 @@
-<app-header (openMenu)="handleMenuOpen($event)"></app-header>
+<app-header (openMenu)="handleMenuOpen()"></app-header>
 <nav-menu [class]="isMenuVisible" (closeMenu)="handleMenuClose($event)"></nav-menu>
 
 <!--<div class="cd-transition-layer visible opening">-->
-<div class="cd-transition-layer">
+<div class="cd-transition-layer" [ngClass]="{'visible opening': isTransationLayerEnable, 'visible opening closing': !isTransationLayerEnable, 'hide': load }">
   <div class="bg-layer"></div>
 </div><!-- Ink Transition -->
 
