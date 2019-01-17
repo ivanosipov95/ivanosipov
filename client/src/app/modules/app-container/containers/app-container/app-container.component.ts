@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-container',
@@ -9,7 +10,9 @@ import {HttpClient} from "@angular/common/http";
 export class AppContainerComponent implements OnInit {
   title = 'wasn\'t tested';
 
-  constructor(private http: HttpClient) {
+  isMenuVisible = '';
+
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,6 +23,21 @@ export class AppContainerComponent implements OnInit {
     this.http.get('api/test').subscribe((data: any) => this.title = data.text);
   }
 
+  handleMenuOpen(): void {
+    this.toggleMenuVisibility();
+  }
+
+  handleMenuClose(link: string): void {
+    this.toggleMenuVisibility();
+    
+    if (link) this.router.navigate([link]);
+  }
+
+  private toggleMenuVisibility(): void {
+    // move to nav-menu component
+    this.isMenuVisible = this.isMenuVisible ? '' : 'visible';
+  }
+
   windowLoad(): void {
     this.triggerSmokeEffect();
   }
@@ -28,7 +46,7 @@ export class AppContainerComponent implements OnInit {
     var modalTrigger = $('.header__nav'),
       transitionLayer = $('.cd-transition-layer'),
       transitionBackground = transitionLayer.children(),
-      modalWindow = $('.full-menu');
+      modalWindow = $('.nav-menu');
 
     //open modal window
     modalTrigger.on('click', function (event) {
@@ -41,7 +59,7 @@ export class AppContainerComponent implements OnInit {
     });
 
     //close modal window
-    modalWindow.on('click', '.modal-close', function (event) {
+    modalWindow.on('click', '.nav-menu__close-btn', function (event) {
       event.preventDefault();
       transitionLayer.addClass('closing');
       modalWindow.removeClass('visible');

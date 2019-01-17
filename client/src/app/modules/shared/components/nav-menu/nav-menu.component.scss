@@ -1,0 +1,86 @@
+:host-context(.visible) .nav-menu {
+  background-size: 100%;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.7s, visibility 0s;
+
+  .nav-menu__close-btn {
+    visibility: visible;
+    opacity: 1;
+    transition: transform 0.3s 0s, visibility 0s 0s, opacity 0.3s 0s;
+    transform: scale(1);
+  }
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__close-btn {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    margin: 17px 100px 0 0;
+    background: rgba(0, 0, 0, 0.3) url(../../../../../assets/cd-icon-close.svg) no-repeat center center;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0);
+    visibility: 0s 0.3s, opacity 0.3s 0s;
+    transition: transform 0.3s 0s, visibility 0s 0.3s, opacity 0.3s 0s;
+  }
+}
+
+.menu {
+  text-align: center;
+
+  li {
+    line-height: 50px;
+
+    a {
+      color: #fff;
+      font-size: 26px;
+      position: relative;
+      font-weight: 500;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .nav-menu__content {
+    padding: 6em 5%;
+  }
+  .nav-menu__close-btn {
+    height: 60px;
+    width: 60px;
+  }
+  .nav-menu p {
+    font-size: 25px;
+  }
+}

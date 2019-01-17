@@ -1,15 +1,5 @@
-<app-header></app-header>
-
-<div class="full-menu">
-  <div class="fullmenu-content">
-    <ul class="page-menu">
-      <li><a href="#" class="active">ABOUT</a></li>
-      <li><a href="#" class="active">CAREER</a></li>
-      <li><a href="#" class="active">BLOG</a></li>
-    </ul>
-  </div>
-  <a href="#0" class="modal-close">Close</a>
-</div>
+<app-header (openMenu)="handleMenuOpen($event)"></app-header>
+<nav-menu [class]="isMenuVisible" (closeMenu)="handleMenuClose($event)"></nav-menu>
 
 <!--<div class="cd-transition-layer visible opening">-->
 <div class="cd-transition-layer">
