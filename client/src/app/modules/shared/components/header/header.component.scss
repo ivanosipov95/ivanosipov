@@ -10,10 +10,10 @@
 
   &__logo {
     a {
-      color: white;
-      border: 1px solid gray;
-      background: gray;
+      border: 1px solid #fccb37;
+      background: #fccb37;
       font-size: 30px;
+      color: black;
     }
 
     a:hover {
@@ -42,7 +42,7 @@
       position: absolute;
       height: 2px;
       width: 100%;
-      background: #fff;
+      background: black;
       opacity: 1;
       transform: rotate(0deg);
       transition: .25s ease-in-out;
