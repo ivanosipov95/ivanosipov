@@ -33,7 +33,7 @@ export class AppContainerComponent implements OnInit {
 
   handleMenuClose(link: string): void {
     this.toggleMenuVisibility();
-    
+
     if (link) this.router.navigate([link]);
   }
 
@@ -51,10 +51,13 @@ export class AppContainerComponent implements OnInit {
   }
 
   triggerSmokeEffect(): void {
-    var modalTrigger = $('.header__nav'),
-      transitionLayer = $('.cd-transition-layer'),
-      transitionBackground = transitionLayer.children(),
-      modalWindow = $('.nav-menu');
+    // @ts-ignore
+    var modalTrigger = $('.header__nav');
+    // @ts-ignore
+    var transitionLayer = $('.cd-transition-layer');
+    var transitionBackground = transitionLayer.children();
+    // @ts-ignore
+    var modalWindow = $('.nav-menu');
 
     //open modal window
     modalTrigger.on('click', function (event) {
