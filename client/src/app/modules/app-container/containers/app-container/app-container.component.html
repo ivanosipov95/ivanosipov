@@ -1,13 +1,19 @@
-<div>Backend: {{title}}</div>
+<app-header></app-header>
 
-<button (click)="changeTitle()">Ping backend</button>
+<div class="full-menu">
+  <div class="fullmenu-content">
+    <ul class="page-menu">
+      <li><a href="#" class="active">ABOUT</a></li>
+      <li><a href="#" class="active">CAREER</a></li>
+      <li><a href="#" class="active">BLOG</a></li>
+    </ul>
+  </div>
+  <a href="#0" class="modal-close">Close</a>
+</div>
 
-<div style="margin-top: 40px">Test navigation</div>
-<ul>
-  <li><button routerLink="/about">About</button></li>
-  <li><button routerLink="/career">Career</button></li>
-  <li><button routerLink="/blog">Blog</button></li>
-  <li><button routerLink="/admin">Admin</button></li>
-</ul>
+<!--<div class="cd-transition-layer visible opening">-->
+<div class="cd-transition-layer">
+  <div class="bg-layer"></div>
+</div><!-- Ink Transition -->
 
 <router-outlet></router-outlet>
