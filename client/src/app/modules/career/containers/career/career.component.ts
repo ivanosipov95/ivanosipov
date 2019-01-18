@@ -1,6 +1,6 @@
-import {Component, OnInit, ChangeDetectionStrategy, AfterViewInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
-import * as d3 from 'd3';
+import {D3Service} from "../../../shared/services";
 
 @Component({
   selector: 'career',
@@ -10,14 +10,14 @@ import * as d3 from 'd3';
 })
 export class CareerComponent implements OnInit, AfterViewInit {
 
-  constructor() {
+  constructor(private d3: D3Service) {
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(): void {
-    d3.select('.career').style('color', 'red');
+    this.d3.initTree();
   }
 
 }

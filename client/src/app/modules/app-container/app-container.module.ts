@@ -10,7 +10,7 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     CommonModule,
     AppContainerRoutingModule,
-    SharedModule
+    SharedModule.forRoot()
   ]
 })
 export class AppContainerModule {
