@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, AfterViewInit} from '@angular/core';
+
+import * as d3 from 'd3';
 
 @Component({
   selector: 'career',
@@ -6,11 +8,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./career.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerComponent implements OnInit {
+export class CareerComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    d3.select('.career').style('color', 'red');
   }
 
 }

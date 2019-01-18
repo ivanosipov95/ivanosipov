@@ -1,5 +1,4 @@
-import {Component, ChangeDetectionStrategy, Output, EventEmitter} from '@angular/core';
-import {Router} from "@angular/router";
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +10,7 @@ export class HeaderComponent {
 
   @Output() onMenuOpen: EventEmitter<void> = new EventEmitter();
 
-  constructor(private router: Router) {
-    
-    console.log('router', this.router);
+  constructor() {
   }
 
 
