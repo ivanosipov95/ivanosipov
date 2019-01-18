@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'nav-menu',
@@ -8,13 +8,28 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular
 })
 export class NavMenuComponent {
 
-  @Output() closeMenu: EventEmitter<string | undefined> = new EventEmitter();
+  @Output() onMenuClose: EventEmitter<string | undefined> = new EventEmitter();
 
-  constructor() {
+  isOpen = false;
+
+  constructor(private cd: ChangeDetectorRef) {
+  }
+
+  open(): void {
+    this.toggle();
+  }
+
+  close(): void {
+    this.toggle();
   }
 
   handleMenuClose({target}: {target: HTMLElement}): void {
-    this.closeMenu.emit(target.dataset['link']);
+    this.close();
+    this.onMenuClose.emit(target.dataset['link']);
   }
 
+  private toggle(): void {
+    this.isOpen = !this.isOpen;
+    this.cd.detectChanges();
+  }
 }

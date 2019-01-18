@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import set = Reflect.set;
+
+import {NavMenuComponent, TransitionLayerComponent} from "../../../shared/components";
 
 @Component({
   selector: 'app-container',
@@ -11,16 +12,16 @@ import set = Reflect.set;
 export class AppContainerComponent implements OnInit {
   title = 'wasn\'t tested';
 
-  isMenuVisible = '';
-  isTransationLayerEnable = '';
-  load = false;
+  @ViewChild(NavMenuComponent)
+  private navMenu: NavMenuComponent;
+
+  @ViewChild(TransitionLayerComponent)
+  private transitionLayer: TransitionLayerComponent;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
-    setTimeout(() => this.load = true, 1000);
-    this.windowLoad();
   }
 
   changeTitle(): void {
@@ -28,53 +29,14 @@ export class AppContainerComponent implements OnInit {
   }
 
   handleMenuOpen(): void {
-    this.toggleMenuVisibility();
+    this.transitionLayer.open();
+    this.navMenu.open();
   }
 
   handleMenuClose(link: string): void {
-    this.toggleMenuVisibility();
+    this.transitionLayer.close();
 
     if (link) this.router.navigate([link]);
-  }
-
-  private toggleMenuVisibility(): void {
-    // move to nav-menu component
-    this.isMenuVisible = this.isMenuVisible ? '' : 'visible';
-    this.isTransationLayerEnable = this.isTransationLayerEnable ? '' : 'visible opening';
-
-    this.load = false;
-    console.log(this.isTransationLayerEnable);
-  }
-
-  windowLoad(): void {
-    this.triggerSmokeEffect();
-  }
-
-  triggerSmokeEffect(): void {
-    // @ts-ignore
-    var modalTrigger = $('.header__nav');
-    // @ts-ignore
-    var transitionLayer = $('.cd-transition-layer');
-    var transitionBackground = transitionLayer.children();
-    // @ts-ignore
-    var modalWindow = $('.nav-menu');
-
-    //open modal window
-    modalTrigger.on('click', function (event) {
-      event.preventDefault();
-      transitionLayer.addClass('visible opening');
-    });
-
-    //close modal window
-    modalWindow.on('click', '.nav-menu__close-btn', function (event) {
-      event.preventDefault();
-      transitionLayer.addClass('closing');
-      transitionBackground.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
-        transitionLayer.removeClass('closing opening visible');
-        transitionBackground.off('webkitAnimationEnd oanimationend msAnimationEnd animationend');
-      });
-    });
-
   }
 
 }

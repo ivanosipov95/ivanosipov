@@ -1,4 +1,6 @@
-<section class="nav-menu" (click)="handleMenuClose($event)">
+<section class="nav-menu"
+         (click)="handleMenuClose($event)"
+         [ngClass]="{'open': isOpen}">
   <div class="nav-menu__content">
     <ul class="menu">
       <li><a data-link="/about">About</a></li>

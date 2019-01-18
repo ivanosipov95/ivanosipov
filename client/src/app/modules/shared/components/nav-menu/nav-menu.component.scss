@@ -1,24 +1,10 @@
-:host-context(.visible) .nav-menu {
-  background-size: 100%;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.7s, visibility 0s;
-
-  .nav-menu__close-btn {
-    visibility: visible;
-    opacity: 1;
-    transition: transform 0.3s 0s, visibility 0s 0s, opacity 0.3s 0s;
-    transform: scale(1);
-  }
-}
-
 .nav-menu {
   position: fixed;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
-  z-index: 3;
+  z-index: 4;
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -48,6 +34,20 @@
     transform: scale(0);
     visibility: 0s 0.3s, opacity 0.3s 0s;
     transition: transform 0.3s 0s, visibility 0s 0.3s, opacity 0.3s 0s;
+  }
+
+  &.open {
+    background-size: 100%;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s, visibility 0s;
+
+    .nav-menu__close-btn {
+      visibility: visible;
+      opacity: 1;
+      transition: transform 0.3s 0s, visibility 0s 0s, opacity 0.3s 0s;
+      transform: scale(1);
+    }
   }
 }
 
