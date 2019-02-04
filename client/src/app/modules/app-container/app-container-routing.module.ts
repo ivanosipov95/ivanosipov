@@ -17,8 +17,8 @@ const routes: Routes = [
         loadChildren: 'src/app/modules/about/about.module#AboutModule'
       },
       {
-        path: 'career',
-        loadChildren: 'src/app/modules/career/career.module#CareerModule'
+        path: 'projects',
+        loadChildren: 'src/app/modules/projects/projects.module#ProjectsModule'
       },
       {
         path: 'blog',

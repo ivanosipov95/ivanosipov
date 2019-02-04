@@ -1,0 +1,20 @@
+<section class="card">
+  <div class="card__header">
+    <img class="img"
+         [src]="project.imageSrc">
+  </div>
+  <div class="card__content">
+    <div>
+      <span class="company-name">{{project.companyName}}, </span><span class="project-name">{{project.projectName}}</span>
+    </div>
+    <div>
+      <span>Period: </span><span>{{project.startDate}}</span>
+    </div>
+    <div>
+      <span>Roles: </span><span>{{project.roles}}</span>
+    </div>
+  </div>
+  <div class="card__action" (click)="handleDetails()">
+    <div>See Details</div>
+  </div>
+</section>

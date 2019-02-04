@@ -1,1 +1,7 @@
+@import 'app-variables';
 
+.content {
+  margin-top: $header-height;
+  height: $content-height;
+  overflow: scroll;
+}

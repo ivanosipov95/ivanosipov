@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  &__card {
+    margin-bottom: 30px;
+  }
+}

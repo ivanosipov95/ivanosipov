@@ -1,0 +1,61 @@
+@import "app-variables";
+
+:host {
+  border: 2px solid black;
+  border-radius: 10px;
+  background: $card-background;
+}
+
+.card {
+
+  height: 300px;
+  width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__header {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid black;
+  }
+
+  &__content {
+    padding-left: 10px;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 2;
+  }
+
+  &__action {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 8px 8px;
+
+    &:hover {
+      background: #cccccc;
+    }
+  }
+}
+
+.company-name {
+  color: black;
+}
+
+.project-name {
+  color: gray;
+}
+
+.img {
+  width: 100%;
+  height: 90%;
+  border-radius: 8px 8px 0 0;
+}

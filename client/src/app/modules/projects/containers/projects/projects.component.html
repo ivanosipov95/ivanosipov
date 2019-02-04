@@ -1,0 +1,7 @@
+<section class="projects">
+  <card class="projects__card"
+        *ngFor="let project of projects$ | async"
+        [project]="project"
+        (onDetails)="handleDetails($event)"
+  ></card>
+</section>

@@ -1,19 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "app-variables";
+
 body {
   font-family: 'Roboto Condensed', sans-serif;
   overflow: hidden;
   margin: 0;
   padding: 0;
 
-  background: #fccb37;
-  //background: #fccb37;
-  //background: #f9e686;
+  background: $app-background;
 }
 
 li {
   list-style: none;
 }
 
+
+//tree colors - should be removed
 .node {
   fill: steelblue;
   stroke: none;
