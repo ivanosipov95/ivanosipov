@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Project} from "../../../projects/models";
 
 @Component({
   selector: 'project-details',
@@ -8,9 +10,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ProjectDetailsComponent implements OnInit {
 
-  constructor() { }
+  project: Project;
+
+  constructor(private route: ActivatedRoute) {
+    this.project = this.route.snapshot.data['project'];
+  }
 
   ngOnInit() {
+
   }
 
 }

@@ -2,8 +2,8 @@ import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angula
 
 import {D3Service} from "../../../shared/services";
 import {Observable, of} from "rxjs";
-import {Project} from "../../models";
-import {debounce, debounceTime} from "rxjs/operators";
+import {Project, projects} from "../../models";
+import {debounceTime} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -20,36 +20,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    const projects: Project[] = [
-      {
-        id: 1,
-        companyName: 'Sidenis',
-        projectName: 'testName',
-        startDate: 12,
-        endDate: 14,
-        roles: 'Frontend Developer',
-        imageSrc: 'assets/sidenis.svg'
-      },
-      {
-        id: 2,
-        companyName: 'EPAM Systems',
-        projectName: 'testName',
-        startDate: 12,
-        endDate: 14,
-        roles: 'Frontend Developer',
-        imageSrc: 'assets/epam.svg'
-      },
-      {
-        id: 3,
-        companyName: 'Polytech',
-        projectName: 'Computer Science',
-        startDate: 12,
-        endDate: 14,
-        roles: 'Student',
-        imageSrc: 'assets/polytech.svg'
-      }
-    ];
-
     this.projects$ = of(projects).pipe(debounceTime(1000));
 
   }

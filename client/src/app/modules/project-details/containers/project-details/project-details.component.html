@@ -1,3 +1,22 @@
-<p>
-  project-details works!
-</p>
+<section class="project-details">
+  <div class="project-details__header">
+    <div class="logo">
+      <img [src]="project.imageSrc" alt="logo">
+    </div>
+    <div>
+      <div>Company name: {{project.companyName}}</div>
+      <div>Project name: {{project.projectName}}</div>
+      <div>Duration: {{project.startDate}}</div>
+    </div>
+  </div>
+  <div class="project-details__description">
+    <div>Description: bla bla bla</div>
+  </div>
+  <div class="project-details__additional">
+    <div>Roles: </div>
+    <div>Responsibilities: </div>
+    <div>Team: </div>
+    <div>Stack: </div>
+    <div>What was done: </div>
+  </div>
+</section>
