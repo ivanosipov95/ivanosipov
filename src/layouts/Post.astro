@@ -1,0 +1,35 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    date: string;
+    description?: string;
+    lang?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const date = new Date(frontmatter.date).toLocaleDateString('ru-RU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <article class="prose">
+    <h1>{frontmatter.title}</h1>
+    <p class="post-date">{date}</p>
+    <slot />
+  </article>
+</Base>
+
+<style>
+  .post-date {
+    opacity: 0.5;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+</style>

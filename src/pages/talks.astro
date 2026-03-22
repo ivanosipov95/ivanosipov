@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+
+const talks = [
+  {
+    title: 'Пример выступления',
+    event: 'Conference Name 2025',
+    date: '2025-10-15',
+    link: '#',
+    slides: '#',
+    video: '',
+  },
+];
+---
+
+<Base title="Talks — Ivan Osipov">
+  <div class="talks-page">
+    <h1>Talks</h1>
+
+    <p class="talks-intro">
+      Выступления на конференциях и митапах.
+    </p>
+
+    <ul class="talks-list">
+      {talks.map(talk => {
+        const date = new Date(talk.date).toLocaleDateString('ru-RU', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        });
+        return (
+          <li class="talk-item">
+            <div class="talk-header">
+              <a href={talk.link} class="talk-title">{talk.title}</a>
+              <span class="talk-date">{date}</span>
+            </div>
+            <div class="talk-meta">
+              <span class="talk-event">{talk.event}</span>
+              <div class="talk-links">
+                {talk.slides && <a href={talk.slides}>Slides</a>}
+                {talk.video && <a href={talk.video}>Video</a>}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .talks-page h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .talks-intro {
+    opacity: 0.6;
+    margin-bottom: 2rem;
+  }
+
+  .talks-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .talk-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .talk-item:last-child {
+    border-bottom: none;
+  }
+
+  .talk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .talk-title {
+    color: var(--c-fg-deep);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+
+  .talk-date {
+    font-size: 0.85rem;
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .talk-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.3rem;
+  }
+
+  .talk-event {
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+
+  .talk-links {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .talk-links a {
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+
+  .talk-links a:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .talks-page h1 {
+      font-size: 1.6rem;
+    }
+
+    .talk-header {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .talk-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+  }
+</style>

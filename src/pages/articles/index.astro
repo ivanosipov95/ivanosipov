@@ -1,0 +1,131 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const posts = await Astro.glob('../../content/articles/*.md');
+const sortedPosts = posts
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+// Group by year
+const grouped = sortedPosts.reduce((acc, post) => {
+  const year = new Date(post.frontmatter.date).getFullYear().toString();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(post);
+  return acc;
+}, {} as Record<string, typeof sortedPosts>);
+---
+
+<Base title="Статьи — Ivan Osipov">
+  <div class="articles-page">
+    <h1>Статьи</h1>
+
+    {Object.entries(grouped)
+      .sort(([a], [b]) => Number(b) - Number(a))
+      .map(([year, yearPosts]) => (
+        <div class="year-group">
+          <h2 class="year-title">{year}</h2>
+          <ul class="post-list">
+            {yearPosts.map(post => {
+              const slug = post.file.split('/').pop()?.replace('.md', '');
+              const date = new Date(post.frontmatter.date).toLocaleDateString('ru-RU', {
+                month: 'short',
+                day: 'numeric',
+              });
+              return (
+                <li>
+                  <a href={`/articles/${slug}`} class="post-link">
+                    <span class="post-title">{post.frontmatter.title}</span>
+                    <span class="post-date">{date}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+
+    {sortedPosts.length === 0 && (
+      <p class="empty">Пока нет записей. Скоро появятся!</p>
+    )}
+  </div>
+</Base>
+
+<style>
+  .articles-page h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .year-group {
+    margin-bottom: 1rem;
+  }
+
+  .year-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.35;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin-bottom: 0;
+  }
+
+  .post-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: none;
+    color: var(--c-fg);
+    transition: color 0.2s;
+    gap: 1rem;
+  }
+
+  .post-link:hover {
+    color: var(--c-fg-deeper);
+    border-bottom: none;
+  }
+
+  .post-link:hover .post-title {
+    color: var(--c-fg-deeper);
+  }
+
+  .post-title {
+    color: var(--c-fg-deep);
+    transition: color 0.2s;
+  }
+
+  .post-date {
+    font-size: 0.85rem;
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .empty {
+    opacity: 0.4;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .articles-page h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .post-link {
+      flex-direction: column;
+      gap: 0.1rem;
+      padding: 0.4rem 0;
+    }
+
+    .post-date {
+      font-size: 0.8rem;
+    }
+  }
+</style>
