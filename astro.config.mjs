@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://ivanosipov95.github.io',
-  base: '/',
+  base: '/ivanosipov/',
   integrations: [mdx()],
   markdown: {
     shikiConfig: {
