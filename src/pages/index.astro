@@ -57,18 +57,69 @@ const experience = [
     </p>
 
     <div class="section">
-      <h2>Опыт</h2>
-      <ul class="experience-list">
-        {experience.map(exp => (
-          <li class="exp-item">
-            <span class="exp-role">{exp.role}</span>
-            <span class="exp-details">
-              <span class="exp-company">{exp.company}</span>
-              <span class="exp-period">{exp.period}</span>
-            </span>
-          </li>
+      <h2>Экспертиза</h2>
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <h3>Архитектура фронтенда</h3>
+          <p>Проектирование масштабируемых приложений, паттерны, декомпозиция модулей</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Full-stack разработка</h3>
+          <p>Node.js, Express, Nest.js, GraphQL, базы данных, проектирование API</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Производительность</h3>
+          <p>Web Vitals, профилирование, оптимизация рендеринга и сборки</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Тестирование</h3>
+          <p>Стратегия тестирования, юнит- и E2E-тесты, Jest, Cypress, повышение надёжности продукта</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Миграции и рефакторинг</h3>
+          <p>Перевод legacy-проектов на современный стек без остановки разработки</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Безопасность</h3>
+          <p>CSP, защита от XSS/CSRF, аутентификация, OpenID Connect, криптография</p>
+        </div>
+        <div class="expertise-card">
+          <h3>CI/CD и DevOps</h3>
+          <p>Пайплайны, Docker, инкрементальные сборки, автоматизация релизов</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Монорепозитории</h3>
+          <p>Масштабирование кодовых баз, NX, управление зависимостями</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Дизайн-системы</h3>
+          <p>Проектирование компонентных библиотек, Storybook, единый UI-язык</p>
+        </div>
+        <div class="expertise-card">
+          <h3>AI-агенты и LLM</h3>
+          <p>Интеграция AI в рабочие процессы, автоматизация через агентов</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Agile / Scrum / Kanban</h3>
+          <p>Выстраивание процессов разработки, SAFe-практики, координация команд</p>
+        </div>
+        <div class="expertise-card">
+          <h3>Менторство и рост команды</h3>
+          <p>Онбординг, код-ревью, развитие разработчиков, проведение собеседований</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Технологии</h2>
+      <div class="tags">
+        {skills.map(skill => (
+          <span class="tag" style={`--tag-color: ${skill.color}`}>
+            <img class="tag-icon" src={skill.icon} alt={skill.name} width="16" height="16" />
+            {skill.name}
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
 
     <div class="section">
@@ -124,83 +175,6 @@ const experience = [
       </p>
     </div>
 
-    <div class="section">
-      <h2>Технологии</h2>
-      <div class="tags">
-        {skills.map(skill => (
-          <span class="tag" style={`--tag-color: ${skill.color}`}>
-            <img class="tag-icon" src={skill.icon} alt={skill.name} width="16" height="16" />
-            {skill.name}
-          </span>
-        ))}
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Экспертиза</h2>
-      <div class="expertise-grid">
-        <div class="expertise-card">
-          <h3>Agile / Scrum / Kanban</h3>
-          <p>Выстраивание процессов разработки, SAFe-практики, координация команд</p>
-        </div>
-        <div class="expertise-card">
-          <h3>AI-агенты и LLM</h3>
-          <p>Интеграция AI в рабочие процессы, автоматизация через агентов</p>
-        </div>
-        <div class="expertise-card">
-          <h3>CI/CD и DevOps</h3>
-          <p>Пайплайны, Docker, инкрементальные сборки, автоматизация релизов</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Монорепозитории</h3>
-          <p>Масштабирование кодовых баз, NX, управление зависимостями</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Дизайн-системы</h3>
-          <p>Проектирование компонентных библиотек, Storybook, единый UI-язык</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Тестирование</h3>
-          <p>Стратегия тестирования, юнит- и E2E-тесты, Jest, Cypress, повышение надёжности продукта</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Архитектура фронтенда</h3>
-          <p>Проектирование масштабируемых приложений, паттерны, декомпозиция модулей</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Full-stack разработка</h3>
-          <p>Node.js, Express, Nest.js, GraphQL, базы данных, проектирование API</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Менторство и рост команды</h3>
-          <p>Онбординг, код-ревью, развитие разработчиков, проведение собеседований</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Производительность</h3>
-          <p>Web Vitals, профилирование, оптимизация рендеринга и сборки</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Миграции и рефакторинг</h3>
-          <p>Перевод legacy-проектов на современный стек без остановки разработки</p>
-        </div>
-        <div class="expertise-card">
-          <h3>Безопасность</h3>
-          <p>CSP, защита от XSS/CSRF, аутентификация, OpenID Connect, криптография</p>
-        </div>
-      </div>
-    </div>
-
-    <!--<div class="section">-->
-    <!--  <h2>Сертификаты</h2>-->
-    <!--  <ul class="cert-list">-->
-    <!--    {certs.map(cert => (-->
-    <!--      <li class="cert-item">-->
-    <!--        <span class="cert-name">{cert.name}</span>-->
-    <!--        <span class="cert-year">{cert.year}</span>-->
-    <!--      </li>-->
-    <!--    ))}-->
-    <!--  </ul>-->
-    <!--</div>-->
 
   </div>
 </Base>
