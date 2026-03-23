@@ -3,6 +3,9 @@ import Base from '../layouts/Base.astro';
 
 const base = import.meta.env.BASE_URL;
 
+const testimonialFiles = await Astro.glob('../content/testimonials/*.md');
+const testimonials = testimonialFiles.sort((a, b) => (a.frontmatter.order ?? 0) - (b.frontmatter.order ?? 0));
+
 const skills = [
   { name: 'TypeScript', color: '#3178c6', icon: `${base}icons/typescript.svg` },
   { name: 'JavaScript', color: '#f7df1e', icon: `${base}icons/javascript.svg` },
@@ -123,6 +126,37 @@ const experience = [
     </div>
 
     <div class="section">
+      <h2>Отзывы</h2>
+      <div class="testimonials-wrapper">
+        <div class="testimonials">
+          {testimonials.map(t => (
+            <blockquote class="testimonial">
+              <div class="testimonial-quote">&ldquo;</div>
+              <div class="testimonial-body">
+                <div class="testimonial-text">
+                  <t.Content />
+                </div>
+              </div>
+              <footer class="testimonial-author">
+                <span class="testimonial-name">{t.frontmatter.name}</span>
+                {t.frontmatter.company && <span class="testimonial-company">{t.frontmatter.company}</span>}
+                <span class="testimonial-role">{t.frontmatter.role}</span>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+        <div class="testimonials-nav">
+          <button class="testimonials-btn testimonials-prev" aria-label="Предыдущий отзыв">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="testimonials-btn testimonials-next" aria-label="Следующий отзыв">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
       <h2>Услуги</h2>
       <div class="services">
         <div class="service-card">
@@ -133,7 +167,7 @@ const experience = [
           <p class="service-desc">
             Разбор архитектурных решений, код-ревью, выбор технологий, карьерные вопросы — разовая сессия по любой теме.
           </p>
-          <a href="https://calendlab.ru/TODO" target="_blank" rel="noopener" class="service-cta">
+          <a href="https://calendlab.ru/c/consulting" target="_blank" rel="noopener" class="service-cta">
             Записаться
           </a>
         </div>
@@ -375,6 +409,154 @@ const experience = [
     display: block;
   }
 
+  /* Testimonials */
+  .testimonials-wrapper {
+    position: relative;
+  }
+
+  .testimonials {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .testimonials::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial {
+    margin: 0;
+    padding: 1.4rem;
+    background: var(--c-border);
+    border-radius: 10px;
+    scroll-snap-align: start;
+    min-width: calc(33.333% - 0.67rem);
+    max-width: calc(33.333% - 0.67rem);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-quote {
+    font-size: 2.5rem;
+    line-height: 1;
+    font-weight: 700;
+    opacity: 0.15;
+    margin-bottom: 0.3rem;
+    user-select: none;
+  }
+
+  .testimonial-body {
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--c-fg-deep);
+    max-height: 7.5em;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .testimonial-text.expanded {
+    max-height: none;
+  }
+
+  .testimonial-text :global(p) {
+    margin: 0 0 0.5rem;
+  }
+
+  .testimonial-text :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .testimonial-text :global(ul),
+  .testimonial-text :global(ol) {
+    margin: 0.3rem 0;
+    padding-left: 1.2rem;
+  }
+
+  .testimonial-text :global(strong) {
+    font-weight: 600;
+  }
+
+  .testimonial-body.truncated {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .testimonial-body.truncated::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
+    background: linear-gradient(transparent, var(--c-border));
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .testimonial-body.truncated.expanded::after {
+    opacity: 0;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.8rem;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+    color: var(--c-fg-deep);
+  }
+
+  .testimonial-company {
+    opacity: 0.6;
+  }
+
+  .testimonial-role {
+    opacity: 0.45;
+    font-size: 0.75rem;
+  }
+
+  .testimonials-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .testimonials-btn {
+    background: var(--c-border);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--c-fg);
+    opacity: 0.5;
+    transition: opacity 0.2s, background 0.2s;
+  }
+
+  .testimonials-btn:hover {
+    opacity: 1;
+    background: var(--c-fg);
+    color: var(--c-bg);
+  }
+
   /* Expertise */
   .expertise-grid {
     display: grid;
@@ -506,6 +688,11 @@ const experience = [
       grid-template-columns: 1fr;
     }
 
+    .testimonial {
+      min-width: 85%;
+      max-width: 85%;
+    }
+
     .tags {
       gap: 0.35rem;
     }
@@ -529,3 +716,38 @@ const experience = [
     }
   }
 </style>
+
+<script>
+  // Carousel navigation
+  const track = document.querySelector('.testimonials');
+  const prevBtn = document.querySelector('.testimonials-prev');
+  const nextBtn = document.querySelector('.testimonials-next');
+
+  if (track && prevBtn && nextBtn) {
+    const getScrollAmount = () => {
+      const card = track.querySelector('.testimonial');
+      if (!card) return 300;
+      return card.offsetWidth + 16;
+    };
+
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    });
+  }
+
+  // Expand/collapse long texts
+  document.querySelectorAll('.testimonial-text').forEach(el => {
+    if (el.scrollHeight > el.offsetHeight + 1) {
+      const body = el.parentElement;
+      body.classList.add('truncated');
+      body.addEventListener('click', () => {
+        el.classList.toggle('expanded');
+        body.classList.toggle('expanded');
+      });
+    }
+  });
+</script>
