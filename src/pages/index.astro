@@ -111,6 +111,7 @@ const experience = [
           <p>Онбординг, код-ревью, развитие разработчиков, проведение собеседований</p>
         </div>
       </div>
+      <button class="expertise-toggle" id="expertise-toggle">Показать все</button>
     </div>
 
     <div class="section">
@@ -557,6 +558,25 @@ const experience = [
     color: var(--c-bg);
   }
 
+  .expertise-toggle {
+    display: none;
+    margin-top: 0.75rem;
+    background: var(--c-border);
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    color: var(--c-fg-deep);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    width: 100%;
+  }
+
+  .expertise-toggle:hover {
+    background: var(--c-fg);
+    color: var(--c-bg);
+  }
+
   /* Expertise */
   .expertise-grid {
     display: grid;
@@ -688,6 +708,18 @@ const experience = [
       grid-template-columns: 1fr;
     }
 
+    .expertise-grid .expertise-card:nth-child(n+5) {
+      display: none;
+    }
+
+    .expertise-grid.expanded .expertise-card:nth-child(n+5) {
+      display: block;
+    }
+
+    .expertise-toggle {
+      display: block;
+    }
+
     .testimonial {
       min-width: 85%;
       max-width: 85%;
@@ -750,4 +782,14 @@ const experience = [
       });
     }
   });
+
+  // Expertise toggle on mobile
+  const toggleBtn = document.getElementById('expertise-toggle');
+  const grid = document.querySelector('.expertise-grid');
+  if (toggleBtn && grid) {
+    toggleBtn.addEventListener('click', () => {
+      const expanded = grid.classList.toggle('expanded');
+      toggleBtn.textContent = expanded ? 'Свернуть' : 'Показать все';
+    });
+  }
 </script>
