@@ -50,6 +50,20 @@ const readingTime = rawContent
     <div class="post-content">
       <slot />
     </div>
+
+    <div class="post-share">
+      <span class="post-share-label">Поделиться:</span>
+      <div class="post-share-buttons">
+        <button class="share-btn" id="copy-link" aria-label="Скопировать ссылку">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span class="share-btn-text">Ссылка</span>
+        </button>
+        <a class="share-btn" id="share-telegram" target="_blank" rel="noopener" aria-label="Поделиться в Telegram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+          <span class="share-btn-text">Telegram</span>
+        </a>
+      </div>
+    </div>
   </article>
 </Base>
 
@@ -201,4 +215,70 @@ const readingTime = rawContent
       padding: 0.8rem;
     }
   }
+
+  /* Share */
+  .post-share {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-border);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .post-share-label {
+    font-size: 0.85rem;
+    opacity: 0.4;
+  }
+
+  .post-share-buttons {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    background: var(--c-border);
+    color: var(--c-fg-deep);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+  }
+
+  .share-btn:hover {
+    background: var(--c-fg);
+    color: var(--c-bg);
+    border-bottom: none;
+  }
+
+  .share-btn.copied {
+    background: #22c55e;
+    color: #fff;
+  }
 </style>
+
+<script>
+  const url = window.location.href;
+  const title = document.querySelector('.prose h1')?.textContent || '';
+
+  document.getElementById('copy-link')?.addEventListener('click', (e) => {
+    navigator.clipboard.writeText(url);
+    const btn = e.currentTarget as HTMLElement;
+    btn.classList.add('copied');
+    const text = btn.querySelector('.share-btn-text');
+    if (text) text.textContent = 'Скопировано';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      if (text) text.textContent = 'Ссылка';
+    }, 2000);
+  });
+
+  const tgLink = document.getElementById('share-telegram');
+  if (tgLink) tgLink.setAttribute('href', `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`);
+</script>
