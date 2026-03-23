@@ -195,6 +195,28 @@ const readingTime = rawContent
     margin: 1.5rem 0;
   }
 
+  .post-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .post-content :global(th),
+  .post-content :global(td) {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--c-border);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .post-content :global(th) {
+    font-weight: 600;
+    opacity: 0.6;
+  }
+
   .post-content :global(hr) {
     border: none;
     border-top: 1px solid var(--c-border);
@@ -213,6 +235,14 @@ const readingTime = rawContent
     .post-content :global(pre) {
       font-size: 0.8rem;
       padding: 0.8rem;
+    }
+
+    .post-share {
+      flex-wrap: wrap;
+    }
+
+    .share-btn-text {
+      display: none;
     }
   }
 
