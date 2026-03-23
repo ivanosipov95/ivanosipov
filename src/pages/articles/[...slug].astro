@@ -16,6 +16,6 @@ const { post } = Astro.props;
 const { Content } = post;
 ---
 
-<Post frontmatter={post.frontmatter}>
+<Post frontmatter={post.frontmatter} rawContent={post.rawContent}>
   <Content />
 </Post>

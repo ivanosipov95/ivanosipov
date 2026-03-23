@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 
+const base = import.meta.env.BASE_URL;
 const posts = await Astro.glob('../../content/articles/*.md');
 const sortedPosts = posts
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
@@ -32,7 +33,7 @@ const grouped = sortedPosts.reduce((acc, post) => {
               });
               return (
                 <li>
-                  <a href={`/articles/${slug}`} class="post-link">
+                  <a href={`${base}articles/${slug}`} class="post-link">
                     <span class="post-title">{post.frontmatter.title}</span>
                     <span class="post-date">{date}</span>
                   </a>
