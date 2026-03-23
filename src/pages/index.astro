@@ -1,25 +1,27 @@
 ---
 import Base from '../layouts/Base.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const skills = [
-  { name: 'TypeScript', color: '#3178c6', icon: '/icons/typescript.svg' },
-  { name: 'JavaScript', color: '#f7df1e', icon: '/icons/javascript.svg' },
-  { name: 'CSS', color: '#1572b6', icon: '/icons/css.svg' },
-  { name: 'React', color: '#61dafb', icon: '/icons/react.svg' },
-  { name: 'Redux', color: '#764abc', icon: '/icons/redux.svg' },
-  { name: 'React Query', color: '#ff4154', icon: '/icons/reactquery.svg' },
-  { name: 'Angular', color: '#dd0031', icon: '/icons/angular.svg' },
-  { name: 'Node.js', color: '#5fa04e', icon: '/icons/nodejs.svg' },
-  { name: 'Express', color: '#000000', icon: '/icons/express.svg' },
-  { name: 'Nest.js', color: '#e0234e', icon: '/icons/nestjs.svg' },
-  { name: 'GraphQL', color: '#e10098', icon: '/icons/graphql.svg' },
-  { name: 'Docker', color: '#2496ed', icon: '/icons/docker.svg' },
-  { name: 'Vite', color: '#646cff', icon: '/icons/vite.svg' },
-  { name: 'Webpack', color: '#8dd6f9', icon: '/icons/webpack.svg' },
-  { name: 'Jest', color: '#c21325', icon: '/icons/jest.svg' },
-  { name: 'Cypress', color: '#69d3a7', icon: '/icons/cypress.svg' },
-  { name: 'NX', color: '#143055', icon: '/icons/nx.svg' },
-  { name: 'ECharts', color: '#aa344d', icon: '/icons/echarts.svg' },
+  { name: 'TypeScript', color: '#3178c6', icon: `${base}icons/typescript.svg` },
+  { name: 'JavaScript', color: '#f7df1e', icon: `${base}icons/javascript.svg` },
+  { name: 'CSS', color: '#1572b6', icon: `${base}icons/css.svg` },
+  { name: 'React', color: '#61dafb', icon: `${base}icons/react.svg` },
+  { name: 'Redux', color: '#764abc', icon: `${base}icons/redux.svg` },
+  { name: 'React Query', color: '#ff4154', icon: `${base}icons/reactquery.svg` },
+  { name: 'Angular', color: '#dd0031', icon: `${base}icons/angular.svg` },
+  { name: 'Node.js', color: '#5fa04e', icon: `${base}icons/nodejs.svg` },
+  { name: 'Express', color: '#000000', icon: `${base}icons/express.svg` },
+  { name: 'Nest.js', color: '#e0234e', icon: `${base}icons/nestjs.svg` },
+  { name: 'GraphQL', color: '#e10098', icon: `${base}icons/graphql.svg` },
+  { name: 'Docker', color: '#2496ed', icon: `${base}icons/docker.svg` },
+  { name: 'Vite', color: '#646cff', icon: `${base}icons/vite.svg` },
+  { name: 'Webpack', color: '#8dd6f9', icon: `${base}icons/webpack.svg` },
+  { name: 'Jest', color: '#c21325', icon: `${base}icons/jest.svg` },
+  { name: 'Cypress', color: '#69d3a7', icon: `${base}icons/cypress.svg` },
+  { name: 'NX', color: '#143055', icon: `${base}icons/nx.svg` },
+  { name: 'ECharts', color: '#aa344d', icon: `${base}icons/echarts.svg` },
 ];
 
 const certs = [
