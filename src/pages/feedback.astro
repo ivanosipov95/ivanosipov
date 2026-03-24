@@ -1,0 +1,316 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const topics = [
+  'Архитектура фронтенда',
+  'React и его экосистема',
+  'TypeScript продвинутый',
+  'Тестирование (unit, E2E)',
+  'CI/CD и DevOps для фронтенда',
+  'Производительность и оптимизация',
+  'Монорепозитории (NX)',
+  'AI-агенты в разработке',
+  'Карьерный рост разработчика',
+  'Дизайн-системы',
+];
+---
+
+<Base title="Обратная связь — Ivan Osipov">
+  <div class="feedback-page">
+    <a href={base} class="back-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      На главную
+    </a>
+
+    <h1>Обратная связь</h1>
+    <p class="feedback-subtitle">Спасибо, за внимание! Буду рад вашему мнению и предложениям.</p>
+
+    <form id="feedback-form" class="feedback-form">
+      <div class="form-group">
+        <label for="review">Отзыв о докладе</label>
+        <textarea id="review" name="review" rows="4" placeholder="Что понравилось, что можно улучшить..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Какие темы интересны в будущем?</label>
+        <div class="topics-grid">
+          {topics.map(topic => (
+            <label class="topic-checkbox">
+              <input type="checkbox" name="topics" value={topic} />
+              <span class="topic-label">{topic}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="custom-topic">Своя тема</label>
+        <input type="text" id="custom-topic" name="customTopic" placeholder="Предложите тему для следующего доклада" />
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">Отправить</button>
+    </form>
+
+    <div class="feedback-success" id="feedback-success">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h2>Спасибо за отзыв!</h2>
+      <p>Ваше мнение поможет сделать следующие доклады лучше.</p>
+      <a href={base} class="back-home">На главную</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .feedback-page {
+    max-width: 600px;
+    padding-top: 1rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    transition: opacity 0.2s;
+    border-bottom: none;
+  }
+
+  .back-link:hover {
+    opacity: 1;
+    border-bottom: none;
+  }
+
+  .feedback-page h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feedback-subtitle {
+    opacity: 0.5;
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  .feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group > label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--c-fg-deep);
+  }
+
+  textarea,
+  input[type="text"] {
+    background: var(--c-border);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--c-fg-deep);
+    font-family: inherit;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  textarea:focus,
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--c-fg);
+  }
+
+  textarea::placeholder,
+  input[type="text"]::placeholder {
+    color: var(--c-fg);
+    opacity: 0.3;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+
+  .topic-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: normal;
+  }
+
+  .topic-checkbox:hover {
+    background: var(--c-border);
+  }
+
+  .topic-checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--c-border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .topic-checkbox input[type="checkbox"]:checked {
+    background: var(--c-fg);
+    border-color: var(--c-fg);
+  }
+
+  .topic-checkbox input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: solid var(--c-bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .topic-label {
+    font-size: 0.85rem;
+    color: var(--c-fg-deep);
+  }
+
+  .submit-btn {
+    background: var(--c-fg);
+    color: var(--c-bg);
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-family: inherit;
+    align-self: flex-start;
+  }
+
+  .submit-btn:hover {
+    opacity: 0.8;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Success state */
+  .feedback-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  .feedback-success.visible {
+    display: block;
+  }
+
+  .success-icon {
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+
+  .feedback-success h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feedback-success p {
+    opacity: 0.5;
+    margin-bottom: 2rem;
+  }
+
+  .back-home {
+    display: inline-flex;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    background: var(--c-border);
+    color: var(--c-fg-deep);
+    font-size: 0.9rem;
+    border-bottom: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .back-home:hover {
+    background: var(--c-fg);
+    color: var(--c-bg);
+    border-bottom: none;
+  }
+
+  @media (max-width: 640px) {
+    .feedback-page h1 {
+      font-size: 1.6rem;
+    }
+
+    .topics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .submit-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // TODO: Replace with your Google Apps Script URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUz_beftR-cg7mkbyyDmIojKYg302UvMKjYVy1ebwecB5kXyYOFQ8aYBOzgRqLY3tK/exec';
+
+  const form = document.getElementById('feedback-form') as HTMLFormElement;
+  const success = document.getElementById('feedback-success')!;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const review = (document.getElementById('review') as HTMLTextAreaElement).value;
+    const customTopic = (document.getElementById('custom-topic') as HTMLInputElement).value;
+    const topics = Array.from(form.querySelectorAll('input[name="topics"]:checked'))
+      .map(el => (el as HTMLInputElement).value);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка...';
+
+    try {
+      if (SCRIPT_URL) {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ review, topics, customTopic, date: new Date().toISOString(), token: 'YOUR_SECRET_TOKEN' }),
+        });
+      }
+
+      form.style.display = 'none';
+      success.classList.add('visible');
+    } catch {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Отправить';
+    }
+  });
+</script>
