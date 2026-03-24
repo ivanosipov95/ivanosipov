@@ -156,6 +156,25 @@ li {
   margin-bottom: 0.3rem;
 }
 
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--c-fg-deeper);
+  color: var(--c-bg);
+  font-size: 0.85rem;
+  border-radius: 0 0 6px 0;
+  border-bottom: none;
+}
+
+.skip-link:focus {
+  top: 0;
+  border-bottom: none;
+}
+
 /* Prose (blog post) styles */
 .prose {
   max-width: 42rem;

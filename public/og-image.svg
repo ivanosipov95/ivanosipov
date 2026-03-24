@@ -1,0 +1,13 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="0.6" fill="rgba(85,85,85,0.15)"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <text x="80" y="220" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="72" font-weight="700" fill="#000000" letter-spacing="-1">Иван Осипов</text>
+  <text x="80" y="290" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="36" fill="#555555">Senior Software Engineer</text>
+  <text x="80" y="380" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="24" fill="#888888">Архитектура · Разработка · Менторство</text>
+  <text x="80" y="540" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="22" fill="#aaaaaa" font-style="italic" letter-spacing="-0.5">~/io</text>
+</svg>

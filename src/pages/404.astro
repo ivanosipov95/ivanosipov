@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Страница не найдена — Ivan Osipov" description="Запрашиваемая страница не найдена.">
+  <div class="not-found">
+    <h1>404</h1>
+    <p>Страница не найдена</p>
+    <a href={base} class="home-link">На главную</a>
+  </div>
+</Base>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .not-found h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    opacity: 0.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .not-found p {
+    font-size: 1.1rem;
+    opacity: 0.6;
+    margin-bottom: 2rem;
+  }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: var(--c-border);
+    color: var(--c-fg-deep);
+    border-bottom: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .home-link:hover {
+    background: var(--c-fg);
+    color: var(--c-bg);
+    border-bottom: none;
+  }
+</style>
