@@ -1,0 +1,112 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const talks = await Astro.glob('../../content/talks/*.md');
+const sorted = talks.sort((a, b) => (a.frontmatter.order ?? 99) - (b.frontmatter.order ?? 99));
+---
+
+<Base title="Выступления — Ivan Osipov">
+  <div class="talks-page">
+    <h1>Выступления</h1>
+    <p class="talks-intro">Доклады на конференциях и митапах.</p>
+
+    <ul class="talks-list">
+      {sorted.map(talk => {
+        const slug = talk.file.split('/').pop()?.replace('.md', '');
+        const date = new Date(talk.frontmatter.date).toLocaleDateString('ru-RU', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+        return (
+          <li>
+            <a href={`${base}talks/${slug}`} class="talk-item">
+              <div class="talk-header">
+                <span class="talk-title">{talk.frontmatter.title}</span>
+                <span class="talk-date">{date}</span>
+              </div>
+              <div class="talk-meta">
+                <span class="talk-event">{talk.frontmatter.event}</span>
+              </div>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .talks-page h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .talks-intro {
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .talks-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .talk-item {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--c-border);
+    transition: opacity 0.2s;
+    border-bottom-style: solid;
+  }
+
+  .talk-item:hover {
+    opacity: 0.7;
+  }
+
+  li:last-child .talk-item {
+    border-bottom: none;
+  }
+
+  .talk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .talk-title {
+    color: var(--c-fg-deep);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+
+  .talk-date {
+    font-size: 0.85rem;
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .talk-meta {
+    margin-top: 0.3rem;
+  }
+
+  .talk-event {
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 640px) {
+    .talks-page h1 {
+      font-size: 1.6rem;
+    }
+
+    .talk-header {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+  }
+</style>
