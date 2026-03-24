@@ -7,7 +7,7 @@ const talks = await Astro.glob('../../content/talks/*.md');
 const sorted = talks.sort((a, b) => (a.frontmatter.order ?? 99) - (b.frontmatter.order ?? 99));
 ---
 
-<Base title="Выступления — Ivan Osipov">
+<Base title="Выступления — Иван Осипов" description="Выступления Ивана Осипова на конференциях и митапах по фронтенд-разработке и архитектуре.">
   <div class="talks-page">
     <h1>Выступления</h1>
     <p class="talks-intro">Доклады на конференциях и митапах.</p>
