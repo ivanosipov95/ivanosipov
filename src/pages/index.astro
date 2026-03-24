@@ -44,7 +44,7 @@ const experience = [
 ];
 ---
 
-<Base title="Ivan Osipov">
+<Base title="Иван Осипов — Senior Software Engineer" description="Иван Осипов — Senior Software Engineer. 10 лет опыта в SaaS, FinTech, InsurTech. Архитектура фронтенда, менторство, консультации.">
   <div class="home">
     <h1>Иван Осипов</h1>
 
@@ -212,6 +212,18 @@ const experience = [
 
 
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Иван Осипов",
+    "jobTitle": "Senior Software Engineer",
+    "url": "https://ivanosipov95.github.io/ivanosipov/",
+    "sameAs": [
+      "https://t.me/osipov_ivan"
+    ],
+    "knowsAbout": ["TypeScript", "React", "Angular", "Node.js", "Frontend Architecture"]
+  })} />
 </Base>
 
 <style>

@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+
+const talks = [
+  {
+    title: 'Микрофронтенды: опыт миграции монолита',
+    event: 'FrontendConf 2025',
+    date: '2025-10-15',
+    slides: 'https://slides.com/ivanosipov/microfrontends',
+    video: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+  },
+];
+---
+
+<Base title="Выступления — Иван Осипов" description="Выступления Ивана Осипова на конференциях и митапах по фронтенд-разработке.">
+  <div class="talks-page">
+    <h1>Talks</h1>
+
+    <p class="talks-intro">
+      Выступления на конференциях и митапах.
+    </p>
+
+    <ul class="talks-list">
+      {talks.map(talk => {
+        const date = new Date(talk.date).toLocaleDateString('ru-RU', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        });
+        return (
+          <li class="talk-item">
+            <div class="talk-header">
+              <span class="talk-title">{talk.title}</span>
+              <span class="talk-date">{date}</span>
+            </div>
+            <div class="talk-meta">
+              <span class="talk-event">{talk.event}</span>
+              <div class="talk-links">
+                {talk.slides && <a href={talk.slides} target="_blank" rel="noopener">Slides</a>}
+                {talk.video && <a href={talk.video} target="_blank" rel="noopener">Video</a>}
+              </div>
+            </div>
+            {talk.video && (
+              <div class="talk-video">
+                <iframe
+                  src={talk.video}
+                  title={talk.title}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+              </div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .talks-page h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .talks-intro {
+    opacity: 0.6;
+    margin-bottom: 2rem;
+  }
+
+  .talks-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .talk-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .talk-item:last-child {
+    border-bottom: none;
+  }
+
+  .talk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .talk-title {
+    color: var(--c-fg-deep);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+
+  .talk-date {
+    font-size: 0.85rem;
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .talk-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.3rem;
+  }
+
+  .talk-event {
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+
+  .talk-links {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .talk-links a {
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+
+  .talk-links a:hover {
+    opacity: 1;
+  }
+
+  .talk-video {
+    margin-top: 0.8rem;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .talk-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  @media (max-width: 640px) {
+    .talks-page h1 {
+      font-size: 1.6rem;
+    }
+
+    .talk-header {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .talk-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+  }
+</style>
