@@ -7,6 +7,7 @@ const links = [
   ...(features.articles ? [{ href: `${base}articles`, text: 'Статьи' }] : []),
   ...(features.talks ? [{ href: `${base}talks`, text: 'Выступления' }] : []),
   ...(features.projects ? [{ href: `${base}projects`, text: 'Проекты' }] : []),
+  ...(features.events ? [{ href: `${base}events`, text: 'Мероприятия' }] : []),
   { href: `${base}Осипов_Иван_CV.pdf`, text: 'Резюме', download: true },
 ];
 ---
