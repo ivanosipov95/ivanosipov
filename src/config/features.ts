@@ -3,4 +3,5 @@ export const features = {
   talks: false,
   projects: false,
   testimonials: true,
+  events: false,
 };
