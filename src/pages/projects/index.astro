@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const projects = await Astro.glob('../../content/projects/*.md');
+const sorted = projects.sort((a, b) => (a.frontmatter.order ?? 99) - (b.frontmatter.order ?? 99));
+---
+
+<Base title="Проекты — Иван Осипов" description="Пет-проекты и инструменты, которые я делаю в свободное время.">
+  <div class="projects-page">
+    <h1>Проекты</h1>
+    <p class="projects-intro">Инструменты и эксперименты в свободное время.</p>
+
+    <ul class="projects-list">
+      {sorted.map(project => {
+        const slug = project.file.split('/').pop()?.replace('.md', '');
+        return (
+          <li>
+            <a href={`${base}projects/${slug}`} class="project-item">
+              <div class="project-header">
+                <span class="project-title">{project.frontmatter.title}</span>
+                {project.frontmatter.url && (
+                  <span class="project-url">{new URL(project.frontmatter.url).hostname}</span>
+                )}
+              </div>
+              <p class="project-description">{project.frontmatter.description}</p>
+              {project.frontmatter.stack && (
+                <div class="project-stack">
+                  {project.frontmatter.stack.map((tech: string) => (
+                    <span class="stack-tag">{tech}</span>
+                  ))}
+                </div>
+              )}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .projects-page h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .projects-intro {
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .projects-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .project-item {
+    display: block;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--c-border);
+    transition: opacity 0.2s;
+    border-bottom-style: solid;
+  }
+
+  .project-item:hover {
+    opacity: 0.7;
+  }
+
+  li:last-child .project-item {
+    border-bottom: none;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .project-title {
+    color: var(--c-fg-deep);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+
+  .project-url {
+    font-size: 0.8rem;
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .project-description {
+    margin: 0.4rem 0 0;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+
+  .project-stack {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .stack-tag {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--c-border);
+    color: var(--c-fg-deep);
+    opacity: 0.7;
+  }
+
+  @media (max-width: 640px) {
+    .projects-page h1 {
+      font-size: 1.6rem;
+    }
+
+    .project-header {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+  }
+</style>
