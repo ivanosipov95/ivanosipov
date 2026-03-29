@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const base = import.meta.env.BASE_URL;
 const { project } = Astro.props;
-const { title, description, url, github, stack } = project.frontmatter;
+const { title, description, url, github, stack, wip } = project.frontmatter;
 const { Content } = project;
 ---
 
@@ -25,7 +25,7 @@ const { Content } = project;
       Все проекты
     </a>
 
-    <h1>{title}</h1>
+    <h1>{title}{wip && <span class="wip-badge">В разработке</span>}</h1>
 
     {stack && (
       <div class="project-stack">
@@ -131,6 +131,18 @@ const { Content } = project;
     background: var(--c-fg);
     color: var(--c-bg);
     border-bottom: none;
+  }
+
+  .wip-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    background: var(--c-accent, #e8a735);
+    color: #fff;
+    font-weight: 600;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    white-space: nowrap;
   }
 
   @media (max-width: 640px) {
