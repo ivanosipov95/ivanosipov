@@ -3,6 +3,7 @@ title: "Markdown Showcase"
 date: "2025-03-21"
 description: "Демонстрация всех элементов markdown для проверки стилей."
 tags: ["markdown", "тест", "showcase"]
+preview: true
 ---
 
 Это статья-демонстрация всех поддерживаемых элементов markdown. Используется для проверки типографики и стилей.

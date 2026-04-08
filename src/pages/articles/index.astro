@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 const base = import.meta.env.BASE_URL;
 const posts = await Astro.glob('../../content/articles/*.md');
 const sortedPosts = posts
+  .filter(post => !post.frontmatter.preview)
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
 
 // Group by year
