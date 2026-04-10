@@ -32,10 +32,20 @@ const grouped = sortedPosts.reduce((acc, post) => {
                 month: 'short',
                 day: 'numeric',
               });
+              const tags = post.frontmatter.tags || [];
               return (
                 <li>
                   <a href={`${base}articles/${slug}`} class="post-link">
-                    <span class="post-title">{post.frontmatter.title}</span>
+                    <span class="post-info">
+                      <span class="post-title">{post.frontmatter.title}</span>
+                      {tags.length > 0 && (
+                        <span class="post-tags">
+                          {tags.map((tag: string) => (
+                            <span class="tag">{tag}</span>
+                          ))}
+                        </span>
+                      )}
+                    </span>
                     <span class="post-date">{date}</span>
                   </a>
                 </li>
@@ -98,9 +108,39 @@ const grouped = sortedPosts.reduce((acc, post) => {
     color: var(--c-fg-deeper);
   }
 
+  .post-link .post-title {
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .post-link:hover .post-title {
+    transform: translateX(4px);
+  }
+
+  .post-info {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
   .post-title {
     color: var(--c-fg-deep);
     transition: color 0.2s;
+  }
+
+  .post-tags {
+    display: inline-flex;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 0.25rem;
+    background: var(--c-border);
+    color: var(--c-fg);
+    white-space: nowrap;
   }
 
   .post-date {
@@ -124,6 +164,11 @@ const grouped = sortedPosts.reduce((acc, post) => {
       flex-direction: column;
       gap: 0.1rem;
       padding: 0.4rem 0;
+    }
+
+    .post-info {
+      flex-direction: column;
+      gap: 0.3rem;
     }
 
     .post-date {

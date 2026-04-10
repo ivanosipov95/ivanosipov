@@ -1,5 +1,5 @@
 export const features = {
-  articles: false,
+  articles: true,
   talks: false,
   projects: true,
   testimonials: true,
