@@ -4,16 +4,10 @@ import Base from '../layouts/Base.astro';
 const base = import.meta.env.BASE_URL;
 
 const topics = [
-  'Архитектура фронтенда',
-  'React и его экосистема',
-  'TypeScript продвинутый',
-  'Тестирование (unit, E2E)',
-  'CI/CD и DevOps для фронтенда',
-  'Производительность и оптимизация',
-  'Монорепозитории (NX)',
-  'AI-агенты в разработке',
   'Карьерный рост разработчика',
-  'Дизайн-системы',
+  'AI в разработке',
+  'Как пройти собеседование в IT',
+  'История развития веб-инструментов',
 ];
 ---
 
@@ -30,7 +24,7 @@ const topics = [
     <form id="feedback-form" class="feedback-form">
       <div class="form-group">
         <label for="review">Отзыв о докладе</label>
-        <textarea id="review" name="review" rows="4" placeholder="Что понравилось, что можно улучшить..."></textarea>
+        <textarea id="review" name="review" rows="4" placeholder="Что понравилось/не понравилось, что можно улучшить..."></textarea>
       </div>
 
       <div class="form-group">
@@ -47,7 +41,7 @@ const topics = [
 
       <div class="form-group">
         <label for="custom-topic">Своя тема</label>
-        <input type="text" id="custom-topic" name="customTopic" placeholder="Предложите тему для следующего доклада" />
+        <textarea id="custom-topic" name="customTopic" rows="3" placeholder="Предложите тему для следующего доклада или формат"></textarea>
       </div>
 
       <button type="submit" class="submit-btn" id="submit-btn">Отправить</button>
@@ -289,7 +283,7 @@ const topics = [
     e.preventDefault();
 
     const review = (document.getElementById('review') as HTMLTextAreaElement).value;
-    const customTopic = (document.getElementById('custom-topic') as HTMLInputElement).value;
+    const customTopic = (document.getElementById('custom-topic') as HTMLTextAreaElement).value;
     const topics = Array.from(form.querySelectorAll('input[name="topics"]:checked'))
       .map(el => (el as HTMLInputElement).value);
 

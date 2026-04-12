@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Структура презентации — Работа в ИТ-компании</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f5f5; font-family: 'Courier New', monospace; padding: 2rem; }
+  h1 { font-size: 14px; color: #999; margin-bottom: 1.5rem; font-weight: normal; letter-spacing: 0.05em; }
+  .toggle-row { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+  .toggle-btn { padding: 8px 20px; font-size: 13px; font-family: 'Courier New', monospace; cursor: pointer; border-radius: 6px; border: 0.5px solid #ccc; background: transparent; color: #888; transition: all 0.15s; }
+  .toggle-btn.active-light { background: #fff; color: #111; border-color: #bbb; }
+  .toggle-btn.active-dark  { background: #111; color: #fff; border-color: #444; }
+  .slides-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .slide { border-radius: 8px; padding: 20px 18px; aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .slide-num  { font-size: 11px; position: absolute; top: 10px; left: 14px; opacity: 0.35; letter-spacing: 0.05em; }
+  .slide-label { font-size: 11px; position: absolute; top: 10px; right: 14px; opacity: 0.35; }
+  .slide-title { font-size: 13px; font-weight: bold; line-height: 1.3; margin-bottom: 6px; }
+  .slide-sub  { font-size: 10px; line-height: 1.5; opacity: 0.55; }
+  .slide-tag  { font-size: 9px; display: inline-block; padding: 2px 7px; border-radius: 3px; margin-bottom: 8px; letter-spacing: 0.08em; }
+  .decor-line { height: 1px; width: 100%; margin: 10px 0; opacity: 0.15; }
+  .dot-grid   { position: absolute; bottom: 10px; right: 14px; display: flex; gap: 4px; }
+  .dot        { width: 4px; height: 4px; border-radius: 50%; opacity: 0.2; }
+
+  /* LIGHT */
+  .light .slide           { background: #fff; border: 0.5px solid #ddd; }
+  .light .slide-title     { color: #111; }
+  .light .slide-sub       { color: #111; }
+  .light .slide-num       { color: #111; }
+  .light .slide-label     { color: #111; }
+  .light .slide-tag       { background: #f0f0f0; color: #555; }
+  .light .decor-line      { background: #111; }
+  .light .dot             { background: #111; }
+  .light .slide.hero      { background: #111; }
+  .light .slide.hero .slide-title  { color: #fff; }
+  .light .slide.hero .slide-sub    { color: #fff; }
+  .light .slide.hero .slide-num    { color: #fff; }
+  .light .slide.hero .slide-label  { color: #fff; }
+  .light .slide.hero .slide-tag    { background: #333; color: #aaa; }
+  .light .slide.hero .decor-line   { background: #fff; }
+  .light .slide.hero .dot          { background: #fff; }
+
+  /* DARK */
+  .dark .slide            { background: #111; border: 0.5px solid #333; }
+  .dark .slide-title      { color: #f0f0f0; }
+  .dark .slide-sub        { color: #f0f0f0; }
+  .dark .slide-num        { color: #f0f0f0; }
+  .dark .slide-label      { color: #f0f0f0; }
+  .dark .slide-tag        { background: #222; color: #888; }
+  .dark .decor-line       { background: #fff; }
+  .dark .dot              { background: #fff; }
+  .dark .slide.hero       { background: #fff; }
+  .dark .slide.hero .slide-title   { color: #111; }
+  .dark .slide.hero .slide-sub     { color: #111; }
+  .dark .slide.hero .slide-num     { color: #111; }
+  .dark .slide.hero .slide-label   { color: #111; }
+  .dark .slide.hero .slide-tag     { background: #eee; color: #555; }
+  .dark .slide.hero .decor-line    { background: #111; }
+  .dark .slide.hero .dot           { background: #111; }
+</style>
+</head>
+<body>
+
+<h1>~/io · Структура презентации «Работа в ИТ-компании»</h1>
+
+<div class="toggle-row">
+  <button class="toggle-btn active-light" id="btn-light" onclick="setMode('light')">Светлая</button>
+  <button class="toggle-btn" id="btn-dark" onclick="setMode('dark')">Тёмная</button>
+</div>
+
+<div class="slides-grid light" id="grid">
+
+  <div class="slide hero">
+    <div class="slide-num">01</div>
+    <div class="slide-label">~/io</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Доклад</div>
+    <div class="slide-title" style="font-size:15px;">Работа в ИТ-компании</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">Иван Осипов · Senior Software Engineer</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">02</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">О чём доклад</div>
+    <div class="slide-title">Что вас ждёт</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">— Кто работает в ИТ<br>— Как устроена команда<br>— Как туда попасть</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">03</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Роли</div>
+    <div class="slide-title">Кто есть в команде</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">Dev · QA · Design<br>PM · DevOps · Analytics</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">04</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Процессы</div>
+    <div class="slide-title">Как выглядит рабочий день</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">Стендапы · Спринты<br>Код-ревью · Релизы</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">05</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Плюсы и минусы</div>
+    <div class="slide-title">Честно об ИТ</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">Зарплата, рост, удалёнка<br>vs дедлайны и выгорание</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">06</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Вход</div>
+    <div class="slide-title">Как попасть в ИТ</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">Курсы · Pet-проекты<br>Стажировки · Нетворкинг</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">07</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Мой путь</div>
+    <div class="slide-title">10 лет в продуктах</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">FinTech · InsurTech · Energy<br>Архитектура и менторство</div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-num">08</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-tag">Вопросы</div>
+    <div class="slide-title">Спасибо!</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub">ivanosipov.dev/feedback/<br>↑ QR на следующем слайде</div>
+  </div>
+
+  <div class="slide hero">
+    <div class="slide-num">09</div>
+    <div class="slide-label">QR</div>
+    <div class="dot-grid"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="slide-title" style="font-size:11px; letter-spacing:0.08em;">ОБРАТНАЯ СВЯЗЬ</div>
+    <div class="decor-line"></div>
+    <div class="slide-sub" style="font-size:9px;">ivanosipov.dev/feedback/</div>
+  </div>
+
+</div>
+
+<script>
+function setMode(mode) {
+  const grid = document.getElementById('grid');
+  grid.className = 'slides-grid ' + mode;
+  document.getElementById('btn-light').className = 'toggle-btn' + (mode === 'light' ? ' active-light' : '');
+  document.getElementById('btn-dark').className  = 'toggle-btn' + (mode === 'dark'  ? ' active-dark'  : '');
+}
+</script>
+</body>
+</html>
