@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const base = import.meta.env.BASE_URL;
 const { project } = Astro.props;
-const { title, description, url, github, stack, wip } = project.frontmatter;
+const { title, description, url, github, stack, wip, screenshots, screenshotsDir } = project.frontmatter;
 const { Content } = project;
 ---
 
@@ -38,6 +38,38 @@ const { Content } = project;
     <div class="project-description">
       <Content />
     </div>
+
+    {screenshots && (
+      <div id="lightbox" class="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Закрыть">×</button>
+        <button class="lightbox-nav lightbox-nav--prev" id="lightbox-prev" aria-label="Назад">←</button>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+        <button class="lightbox-nav lightbox-nav--next" id="lightbox-next" aria-label="Вперёд">→</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+      </div>
+    )}
+
+    {screenshots && (
+      <div class="carousel" id="carousel">
+        <div class="carousel-track">
+          {screenshots.map((s: { file: string; caption: string }, i: number) => (
+            <div class={`carousel-slide${i === 0 ? ' active' : ''}`} data-index={i}>
+              <img
+                src={`${base}projects/${screenshotsDir}/${s.file}`}
+                alt={s.caption}
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
+          ))}
+        </div>
+        <div class="carousel-ui">
+          <button class="carousel-btn" id="carousel-prev" aria-label="Назад">←</button>
+          <span class="carousel-caption" id="carousel-caption">{screenshots[0].caption}</span>
+          <span class="carousel-counter" id="carousel-counter">1 / {screenshots.length}</span>
+          <button class="carousel-btn" id="carousel-next" aria-label="Вперёд">→</button>
+        </div>
+      </div>
+    )}
 
     <div class="project-links">
       {url && (
@@ -145,6 +177,154 @@ const { Content } = project;
     white-space: nowrap;
   }
 
+  .carousel {
+    margin-bottom: 2rem;
+    user-select: none;
+  }
+
+  .carousel-track {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--c-border);
+    background: var(--c-border);
+    aspect-ratio: 16 / 9;
+    cursor: zoom-in;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+
+  .carousel-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .carousel-ui {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.6rem;
+  }
+
+  .carousel-btn {
+    background: var(--c-border);
+    border: none;
+    color: var(--c-fg);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+
+  .carousel-btn:hover {
+    background: var(--c-fg);
+    color: var(--c-bg);
+  }
+
+  .carousel-caption {
+    flex: 1;
+    font-size: 0.82rem;
+    opacity: 0.55;
+  }
+
+  .carousel-counter {
+    font-size: 0.78rem;
+    opacity: 0.35;
+    flex-shrink: 0;
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.92);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+
+  .lightbox.open {
+    display: flex;
+  }
+
+  .lightbox-img {
+    max-width: 95vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+    z-index: 1;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s, background 0.15s;
+    z-index: 1;
+  }
+
+  .lightbox-nav:hover {
+    opacity: 1;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .lightbox-nav--prev { left: 1.25rem; }
+  .lightbox-nav--next { right: 1.25rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 0.8rem;
+    opacity: 0.45;
+  }
+
   @media (max-width: 640px) {
     h1 {
       font-size: 1.6rem;
@@ -157,5 +337,103 @@ const { Content } = project;
     .project-link {
       justify-content: center;
     }
+
+    .lightbox-nav {
+      display: none;
+    }
+
+    .lightbox-img {
+      max-width: 100vw;
+      max-height: 85vh;
+    }
+
+    .lightbox-counter {
+      bottom: 1.5rem;
+    }
   }
 </style>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>('.carousel-slide');
+  const caption = document.getElementById('carousel-caption');
+  const counter = document.getElementById('carousel-counter');
+  const total = slides.length;
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+
+  if (total > 0) {
+    const captions = Array.from(slides).map(s => s.querySelector('img')?.alt ?? '');
+    const srcs = Array.from(slides).map(s => s.querySelector('img')?.src ?? '');
+    let current = 0;
+
+    const lightboxCounter = document.getElementById('lightbox-counter');
+
+    function go(n: number) {
+      slides[current].classList.remove('active');
+      current = (n + total) % total;
+      slides[current].classList.add('active');
+      if (caption) caption.textContent = captions[current];
+      if (counter) counter.textContent = `${current + 1} / ${total}`;
+      if (lightbox?.classList.contains('open') && lightboxImg) {
+        lightboxImg.src = srcs[current];
+        lightboxImg.alt = captions[current];
+        if (lightboxCounter) lightboxCounter.textContent = `${current + 1} / ${total}`;
+      }
+    }
+
+    document.getElementById('carousel-prev')?.addEventListener('click', () => go(current - 1));
+    document.getElementById('carousel-next')?.addEventListener('click', () => go(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') go(current - 1);
+      if (e.key === 'ArrowRight') go(current + 1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Lightbox open
+    document.querySelector('.carousel-track')?.addEventListener('click', () => {
+      if (lightbox && lightboxImg) {
+        lightboxImg.src = srcs[current];
+        lightboxImg.alt = captions[current];
+        if (lightboxCounter) lightboxCounter.textContent = `${current + 1} / ${total}`;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    function closeLightbox() {
+      lightbox?.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    lightbox?.addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+
+    // Lightbox prev/next — останавливаем всплытие чтобы не закрывать
+    document.getElementById('lightbox-prev')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      go(current - 1);
+    });
+    document.getElementById('lightbox-next')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      go(current + 1);
+    });
+
+    // Свайп — общая функция
+    function addSwipe(el: Element | null, onLeft: () => void, onRight: () => void) {
+      if (!el) return;
+      let startX = 0;
+      el.addEventListener('touchstart', (e) => {
+        startX = (e as TouchEvent).touches[0].clientX;
+      }, { passive: true });
+      el.addEventListener('touchend', (e) => {
+        const dx = (e as TouchEvent).changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) dx < 0 ? onLeft() : onRight();
+      }, { passive: true });
+    }
+
+    addSwipe(document.querySelector('.carousel-track'), () => go(current + 1), () => go(current - 1));
+    addSwipe(lightboxImg, () => go(current + 1), () => go(current - 1));
+  }
+</script>

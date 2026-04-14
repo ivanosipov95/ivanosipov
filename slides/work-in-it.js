@@ -80,9 +80,12 @@ function buildPresentation() {
         return pres.appendSlide(SlidesApp.PredefinedLayout.BLANK);
     }
 
+    function io(s) { addTxt(s, '~/io', 670, 12, 50, 16, 9, T.text); }
+
     function slide(s, n, title, bodyText) {
         setBg(s);
         addNum(s, n);
+        io(s);
         addTxt(s, title, M, 45, TW, 50, 26, T.text, true);
         addLine(s, M, 105, TW);
         if (bodyText) addTxt(s, bodyText, M, 118, TW, 255, 14, T.muted);
@@ -124,7 +127,7 @@ function buildPresentation() {
     // 01 Титул
     setBg(s1);
     addNum(s1, 1);
-    addTxt(s1, '~/io', 670, 12, 50, 16, 9, T.num);
+    io(s1);
     const titleBox = addTxt(s1, 'Как устроена работа в ИТ', 0, 155, 720, 75, 34, T.text, true);
     titleBox.getText().getParagraphs().forEach(p =>
         p.getRange().getParagraphStyle()
@@ -135,7 +138,7 @@ function buildPresentation() {
 
     // 02 О себе
     const s2 = newSlide();
-    setBg(s2); addNum(s2, 2);
+    setBg(s2); addNum(s2, 2); io(s2);
     addTxt(s2, 'Иван Осипов', M, 45, TW, 38, 26, T.text, true);
     addTxt(s2, 'Senior Software Engineer', M, 85, TW, 22, 13, T.muted);
     addLine(s2, M, 116, TW);
@@ -150,7 +153,7 @@ function buildPresentation() {
 
     // 04 Типы компаний
     const s4 = newSlide();
-    setBg(s4); addNum(s4, 4);
+    setBg(s4); addNum(s4, 4); io(s4);
     addTxt(s4, 'Типы компаний', M, 45, TW, 50, 26, T.text, true);
     addLine(s4, M, 105, TW);
     addCards3(s4, [
@@ -162,7 +165,7 @@ function buildPresentation() {
 
     // 05 Направления бизнеса
     const s6 = newSlide();
-    setBg(s6); addNum(s6, 5);
+    setBg(s6); addNum(s6, 5); io(s6);
     addTxt(s6, 'Направления бизнеса', M, 45, TW, 50, 26, T.text, true);
     addLine(s6, M, 105, TW);
     addCards4(s6, [
@@ -175,7 +178,7 @@ function buildPresentation() {
 
     // 06 Трудоустройство
     const s7 = newSlide();
-    setBg(s7); addNum(s7, 6);
+    setBg(s7); addNum(s7, 6); io(s7);
     addTxt(s7, 'Трудоустройство', M, 45, TW, 50, 26, T.text, true);
     addLine(s7, M, 105, TW);
     addCards4(s7, [
@@ -201,7 +204,7 @@ function buildPresentation() {
 
     // 08 Рабочий день
     const s10 = newSlide();
-    setBg(s10); addNum(s10, 8);
+    setBg(s10); addNum(s10, 8); io(s10);
     addTxt(s10, 'Как выглядит рабочий день', M, 45, TW, 50, 26, T.text, true);
     addLine(s10, M, 105, TW);
     addTxt(s10, 'ДЕНЬ', M, 118, 60, 14, 8, T.num);
@@ -231,7 +234,7 @@ function buildPresentation() {
 
     // 09 Плюсы и минусы
     const s11 = newSlide();
-    setBg(s11); addNum(s11, 9);
+    setBg(s11); addNum(s11, 9); io(s11);
     addTxt(s11, 'Плюсы и минусы', M, 45, TW, 50, 26, T.text, true);
     addLine(s11, M, 105, TW);
     addTxt(s11, '+ Высокий доход\n+ Удалёнка\n+ Гибкий график\n+ Международность\n+ Крутое окружение', M, 118, 300, 220, 14, T.green);
@@ -239,15 +242,21 @@ function buildPresentation() {
     notes(s11, 'ИТ традиционно одна из самых высокооплачиваемых сфер. Удалёнка и гибкий график — норма для большинства компаний. Международность: знаешь английский — перед тобой весь мировой рынок.\n\nНо: работа часто выходит за рамки рабочего времени. Это не про переработки — голова просто продолжает думать о задаче после закрытия ноутбука.\n\nПостоянное обучение — для кого-то плюс, для кого-то нет. Выгорание реально при интенсивной умственной работе и дедлайнах. Важно вовремя замечать.');
 
     // 10 Кому подойдёт
-    const s12 = slide(newSlide(), 10, 'Кому подойдёт ИТ',
-        '— Нравится разбираться как устроены вещи\n— Можешь долго фокусироваться на задаче\n— Не пугает постоянное обучение\n— Комфортно с неопределённостью\n\nЕсли пока не уверен — это тоже нормально');
+    const s12 = newSlide();
+    setBg(s12); addNum(s12, 10); io(s12);
+    const s12Title = addTxt(s12, 'Кому подойдёт ИТ', 0, 45, 720, 50, 26, T.text, true);
+    s12Title.getText().getParagraphs().forEach(p =>
+        p.getRange().getParagraphStyle()
+            .setParagraphAlignment(SlidesApp.ParagraphAlignment.CENTER)
+    );
+    addLine(s12, M, 105, TW);
     notes(s12, 'Большинство работы — это не вдохновение, а методичное решение проблем. Нужно уметь фокусироваться.\n\nТехнологии меняются быстро, и это навсегда — к этому нужно быть готовым.\n\nНеопределённость особенно актуальна для стартапов и аутсорса — задачи часто меняются на ходу.\n\nЕсли всё это про тебя — скорее всего, впишешься. Многие приходят в ИТ без чёткого понимания и находят своё место уже в процессе.');
 
     // 11 Контакты
     const s13 = newSlide();
     setBg(s13);
     addNum(s13, 11);
-    addTxt(s13, '~/io', 670, 12, 50, 16, 9, T.num);
+    io(s13);
     addTxt(s13, 'Спасибо за внимание!', M, 55, 600, 55, 34, T.text, true);
     addLine(s13, M, 122, TW);
     addTxt(s13, 'ivanosipov.dev\nt.me/osipov_ivan', M, 135, TW, 65, 13, T.muted);
