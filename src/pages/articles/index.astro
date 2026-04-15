@@ -18,7 +18,10 @@ const grouped = sortedPosts.reduce((acc, post) => {
 
 <Base title="Статьи — Иван Осипов" description="Статьи Ивана Осипова о фронтенд-разработке, архитектуре и технологиях.">
   <div class="articles-page">
-    <h1>Статьи</h1>
+    <div class="page-tabs">
+      <a href={`${base}articles`} class="tab tab-active">Статьи</a>
+      <a href={`${base}digest`} class="tab">Дайджест</a>
+    </div>
 
     {Object.entries(grouped)
       .sort(([a], [b]) => Number(b) - Number(a))
@@ -62,9 +65,33 @@ const grouped = sortedPosts.reduce((acc, post) => {
 </Base>
 
 <style>
-  .articles-page h1 {
-    font-size: 2rem;
+  .page-tabs {
+    display: flex;
+    gap: 0.25rem;
     margin-bottom: 2rem;
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: 0;
+  }
+
+  .tab {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px 6px 0 0;
+    color: var(--c-fg);
+    opacity: 0.45;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: opacity 0.2s;
+  }
+
+  .tab:hover {
+    opacity: 0.75;
+    border-bottom-color: transparent;
+  }
+
+  .tab-active {
+    opacity: 1;
+    border-bottom-color: var(--c-fg);
   }
 
   .year-group {
@@ -155,11 +182,6 @@ const grouped = sortedPosts.reduce((acc, post) => {
   }
 
   @media (max-width: 640px) {
-    .articles-page h1 {
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
-    }
-
     .post-link {
       flex-direction: column;
       gap: 0.1rem;

@@ -1,0 +1,136 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+const issues = await Astro.glob('../../content/digest/*.md');
+const sortedIssues = issues.sort(
+  (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+);
+---
+
+<Base title="Дайджест — Иван Осипов" description="Еженедельный дайджест лучших материалов из мира JavaScript от Ивана Осипова.">
+  <div class="digest-page">
+    <div class="page-tabs">
+      <a href={`${base}articles`} class="tab">Статьи</a>
+      <a href={`${base}digest`} class="tab tab-active">Дайджест</a>
+    </div>
+
+    <p class="digest-description">
+      Каждую неделю выбираю 5 лучших материалов из мира JS — с кратким саммари и своим комментарием.
+    </p>
+
+    <ul class="issue-list">
+      {sortedIssues.map(issue => {
+        const slug = issue.file.split('/').pop()?.replace('.md', '');
+        const date = new Date(issue.frontmatter.date).toLocaleDateString('ru-RU', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+        return (
+          <li>
+            <a href={`${base}digest/${slug}`} class="issue-link">
+              <span class="issue-title">{issue.frontmatter.title}</span>
+              <span class="issue-date">{date}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    {sortedIssues.length === 0 && (
+      <p class="empty">Первый выпуск скоро появится!</p>
+    )}
+  </div>
+</Base>
+
+<style>
+  .page-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: 0;
+  }
+
+  .tab {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px 6px 0 0;
+    color: var(--c-fg);
+    opacity: 0.45;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: opacity 0.2s;
+  }
+
+  .tab:hover {
+    opacity: 0.75;
+    border-bottom-color: transparent;
+  }
+
+  .tab-active {
+    opacity: 1;
+    border-bottom-color: var(--c-fg);
+  }
+
+  .digest-description {
+    font-size: 0.9rem;
+    opacity: 0.55;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .issue-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .issue-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: none;
+    color: var(--c-fg);
+    gap: 1rem;
+    transition: color 0.2s;
+  }
+
+  .issue-link:hover {
+    border-bottom: none;
+  }
+
+  .issue-title {
+    color: var(--c-fg-deep);
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .issue-link:hover .issue-title {
+    transform: translateX(4px);
+  }
+
+  .issue-date {
+    font-size: 0.85rem;
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .empty {
+    opacity: 0.4;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .issue-link {
+      flex-direction: column;
+      gap: 0.1rem;
+      padding: 0.4rem 0;
+    }
+
+    .issue-date {
+      font-size: 0.8rem;
+    }
+  }
+</style>

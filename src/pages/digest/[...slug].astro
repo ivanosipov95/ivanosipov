@@ -1,0 +1,169 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+
+export async function getStaticPaths() {
+  const issues = await Astro.glob('../../content/digest/*.md');
+  return issues.map(issue => {
+    const slug = issue.file.split('/').pop()?.replace('.md', '');
+    return {
+      params: { slug },
+      props: { issue },
+    };
+  });
+}
+
+const { issue } = Astro.props;
+const { Content, frontmatter } = issue;
+
+const date = new Date(frontmatter.date).toLocaleDateString('ru-RU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base
+  title={`${frontmatter.title} — Иван Осипов`}
+  description={`Еженедельный дайджест лучших материалов из мира JavaScript. Выпуск от ${date}.`}
+  ogType="article"
+  article={{ publishedTime: frontmatter.date }}
+>
+  <article class="prose">
+    <a href={`${base}digest`} class="back-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Все выпуски
+    </a>
+
+    <h1>{frontmatter.title}</h1>
+
+    <div class="issue-meta">
+      <span class="issue-date">{date}</span>
+      {frontmatter.source && (
+        <a href={frontmatter.source} target="_blank" rel="noopener" class="issue-source">
+          Источник: JavaScript Weekly #{frontmatter.issue}
+        </a>
+      )}
+    </div>
+
+    <div class="issue-content">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    transition: opacity 0.2s;
+    border-bottom: none;
+  }
+
+  .back-link:hover {
+    opacity: 1;
+    border-bottom: none;
+  }
+
+  .prose h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .issue-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    opacity: 0.45;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .issue-source {
+    opacity: 0.7;
+    font-size: 0.8rem;
+    color: var(--c-fg);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    border-bottom: none;
+    transition: opacity 0.2s;
+  }
+
+  .issue-source:hover {
+    opacity: 1;
+    border-bottom: none;
+  }
+
+  .issue-content {
+    line-height: 1.8;
+  }
+
+  .issue-content :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .issue-content :global(h2 a) {
+    color: var(--c-fg-deep);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    border-bottom: none;
+    transition: opacity 0.2s;
+  }
+
+  .issue-content :global(h2 a:hover) {
+    opacity: 0.7;
+    border-bottom: none;
+  }
+
+  .issue-content :global(p) {
+    margin-bottom: 0.8rem;
+    opacity: 0.85;
+  }
+
+  .issue-content :global(blockquote) {
+    border-left: 3px solid var(--c-border);
+    padding: 0.6rem 1rem;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.9rem;
+    opacity: 0.75;
+    font-style: normal;
+    background: color-mix(in srgb, var(--c-border) 40%, transparent);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .issue-content :global(blockquote p) {
+    margin: 0;
+    opacity: 1;
+  }
+
+  .issue-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--c-border);
+    margin: 2rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .prose h1 {
+      font-size: 1.6rem;
+    }
+
+    .issue-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+  }
+</style>
