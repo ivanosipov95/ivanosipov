@@ -4,22 +4,28 @@ import Base from '../layouts/Base.astro';
 const base = import.meta.env.BASE_URL;
 
 const topics = [
-  'Карьерный рост разработчика',
-  'AI в разработке',
-  'Как пройти собеседование в IT',
+  'Как устроен карьерный рост в ИТ',
+  'Как устроено собеседование в ИТ',
+  'Как устроено код-ревью',
+  'Как устроена разработка в продуктовой команде',
+  'ИИ для разработчика',
   'История развития веб-инструментов',
 ];
 ---
 
 <Base title="Обратная связь — Иван Осипов" description="Оставьте отзыв о докладе и предложите темы для будущих выступлений.">
   <div class="feedback-page">
-    <a href={base} class="back-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      На главную
-    </a>
-
     <h1>Обратная связь</h1>
     <p class="feedback-subtitle">Спасибо, за внимание! Буду рад вашему мнению и предложениям.</p>
+
+    <a href={`${base}articles/work-in-it`} target="_blank" class="article-card">
+      <div class="article-card-label">Статья по теме доклада</div>
+      <div class="article-card-title">Как устроена работа в ИТ</div>
+      <div class="article-card-desc">Типы компаний, роли в команде, процессы и рабочий день в ИТ.</div>
+      <div class="article-card-cta">Читать статью
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
 
     <form id="feedback-form" class="feedback-form">
       <div class="form-group">
@@ -88,8 +94,57 @@ const topics = [
 
   .feedback-subtitle {
     opacity: 0.5;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     font-size: 0.95rem;
+  }
+
+  .article-card {
+    display: block;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--c-border);
+    transition: border-color 0.2s;
+  }
+
+  .article-card:hover {
+    border-color: var(--c-fg);
+  }
+
+  .article-card-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--c-fg-deep);
+    margin-bottom: 0.35rem;
+  }
+
+  .article-card-desc {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .article-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--c-fg-deep);
+  }
+
+  .article-card:hover .article-card-cta {
+    gap: 0.5rem;
   }
 
   .feedback-form {
