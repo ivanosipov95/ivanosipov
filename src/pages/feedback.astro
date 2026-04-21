@@ -327,12 +327,72 @@ const topics = [
 </style>
 
 <script>
-  // TODO: Replace with your Google Apps Script URL
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUz_beftR-cg7mkbyyDmIojKYg302UvMKjYVy1ebwecB5kXyYOFQ8aYBOzgRqLY3tK/exec';
+  const MAX_RETRIES = 3;
+  const QUEUE_KEY = 'feedback-queue-v1';
 
   const form = document.getElementById('feedback-form') as HTMLFormElement;
   const success = document.getElementById('feedback-success')!;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+  async function send(payload: string): Promise<void> {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: payload,
+      redirect: 'follow',
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const text = (await response.text()).trim();
+    if (text !== 'ok') throw new Error(`server: ${text || 'empty response'}`);
+  }
+
+  async function sendWithRetry(payload: string): Promise<void> {
+    let lastErr: unknown;
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        await send(payload);
+        return;
+      } catch (err) {
+        lastErr = err;
+        if (attempt === MAX_RETRIES) break;
+        const backoff = 1000 * Math.pow(2, attempt) + Math.random() * 500;
+        await sleep(backoff);
+      }
+    }
+    throw lastErr;
+  }
+
+  function readQueue(): string[] {
+    try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  function writeQueue(items: string[]): void {
+    try { localStorage.setItem(QUEUE_KEY, JSON.stringify(items)); }
+    catch { /* localStorage unavailable — accept the loss */ }
+  }
+
+  function enqueue(payload: string): void {
+    const queue = readQueue();
+    queue.push(payload);
+    writeQueue(queue);
+  }
+
+  async function flushQueue(): Promise<void> {
+    const queue = readQueue();
+    if (!queue.length) return;
+    const remaining: string[] = [];
+    for (const item of queue) {
+      try { await sendWithRetry(item); }
+      catch { remaining.push(item); }
+    }
+    writeQueue(remaining);
+  }
+
+  flushQueue();
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -342,24 +402,26 @@ const topics = [
     const topics = Array.from(form.querySelectorAll('input[name="topics"]:checked'))
       .map(el => (el as HTMLInputElement).value);
 
+    const payload = JSON.stringify({
+      review,
+      topics,
+      customTopic,
+      date: new Date().toISOString(),
+      token: 'YOUR_SECRET_TOKEN',
+    });
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Отправка...';
 
-    try {
-      if (SCRIPT_URL) {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ review, topics, customTopic, date: new Date().toISOString(), token: 'YOUR_SECRET_TOKEN' }),
-        });
-      }
+    await sleep(Math.random() * 2000);
 
-      form.style.display = 'none';
-      success.classList.add('visible');
+    try {
+      await sendWithRetry(payload);
     } catch {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Отправить';
+      enqueue(payload);
     }
+
+    form.style.display = 'none';
+    success.classList.add('visible');
   });
 </script>
