@@ -1,6 +1,6 @@
 export const features = {
   articles: true,
-  talks: false,
+  talks:  true,
   projects: true,
   testimonials: true,
   events: false,

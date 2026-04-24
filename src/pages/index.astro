@@ -250,6 +250,46 @@ const experience = [
     margin-bottom: 1.8rem;
   }
 
+  .hero-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: none;
+    transition: opacity 0.2s, background 0.2s, color 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--c-fg);
+    color: var(--c-bg);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.85;
+    border-bottom: none;
+  }
+
+  .btn-secondary {
+    background: var(--c-border);
+    color: var(--c-fg-deep);
+  }
+
+  .btn-secondary:hover {
+    background: var(--c-fg);
+    color: var(--c-bg);
+    border-bottom: none;
+  }
+
   .section {
     margin-top: 2.5rem;
   }
