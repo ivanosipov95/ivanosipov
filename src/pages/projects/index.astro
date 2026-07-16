@@ -7,10 +7,10 @@ const projects = await Astro.glob('../../content/projects/*.md');
 const sorted = projects.sort((a, b) => (a.frontmatter.order ?? 99) - (b.frontmatter.order ?? 99));
 ---
 
-<Base title="Проекты — Иван Осипов" description="Пет-проекты и инструменты, которые я делаю в свободное время.">
+<Base title="Проекты — Иван Осипов" description="Продукты и инструменты, которые я проектирую и разрабатываю.">
   <div class="projects-page">
     <h1>Проекты</h1>
-    <p class="projects-intro">Пет-проекты в свободное время</p>
+    <p class="projects-intro">Продукты и инструменты, которые я разрабатываю</p>
 
     <ul class="projects-list">
       {sorted.map(project => {

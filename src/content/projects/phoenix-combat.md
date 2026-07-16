@@ -1,8 +1,8 @@
 ---
 title: "Phoenix Combat"
 description: "Платформа для организации турниров по единоборствам. Организаторы управляют соревнованиями и участниками, спортсмены — регистрируются и следят за результатами."
+url: "https://phoenixcombat.ru"
 stack: ["TypeScript", "React", "Next.js", "Express", "SQLite", "Drizzle ORM", "Better-Auth", "Zod", "Vitest"]
-wip: true
 order: 2
 screenshotsDir: "phoenix-combat"
 screenshots:
